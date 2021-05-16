@@ -68,14 +68,14 @@ function trainModel() {
   let trainingTarget;
   for (let i = 0; i < 500; i += 1) {
     if (i % 2) {
-      a = Math.random(0, 0.16);
-      b = Math.random(0.16, 0.32);
-      c = Math.random(0.32, 0.5);
+      a = random(0, 0.16);
+      b = random(0.16, 0.32);
+      c = random(0.32, 0.5);
       trainingTarget = [0, 0];
     } else {
-      a = Math.random(0.5, 0.66);
-      b = Math.random(0.66, 0.82);
-      c = Math.random(0.82, 1);
+      a = random(0.5, 0.66);
+      b = random(0.66, 0.82);
+      c = random(0.82, 1);
       trainingTarget = [1, 1];
     }
 
