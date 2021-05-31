@@ -15,7 +15,7 @@ function setup() {
   frameRate(1); // set the frameRate to 1 since we don't need it to be running quickly in this case
 }
 
-// when the image is ready, then load up poseNet
+// when the image is ready, then load up facemesh
 function imageReady() {
   facemesh = ml5.facemesh(modelReady);
 
@@ -24,18 +24,18 @@ function imageReady() {
   });
 }
 
-// when poseNet is ready, do the detection
+// when facemesh is ready, do the detection
 function modelReady() {
   console.log("Model ready!");
   facemesh.predict(img);
 }
 
-// draw() will not show anything until poses are found
+// draw() will not show anything until the face is found
 function draw() {
   if (predictions.length > 0) {
     image(img, 0, 0, width, height);
     drawKeypoints();
-    noLoop(); // stop looping when the poses are estimated
+    noLoop(); // stop looping when the face is estimated
   }
 }
 
@@ -44,7 +44,7 @@ function drawKeypoints() {
   for (let i = 0; i < predictions.length; i += 1) {
     const keypoints = predictions[i].scaledMesh;
 
-    // Draw facial keypoints.
+    // Draw keypoints.
     for (let j = 0; j < keypoints.length; j += 1) {
       const [x, y] = keypoints[j];
 
