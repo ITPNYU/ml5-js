@@ -753,7 +753,7 @@ class NeuralNetworkData {
    * @param {*} nameOrCb
    * @param {*} cb
    */
-  async saveMeta(nameOrCb, cb) {
+  async saveMeta({nameOrCb, cb, downloadOnSave = true}) {
     let modelName;
     let callback;
 
@@ -770,9 +770,13 @@ class NeuralNetworkData {
       modelName = 'model';
     }
 
-    await saveBlob(JSON.stringify(this.meta), `${modelName}_meta.json`, 'text/plain');
+    if (downloadOnSave) {
+      await saveBlob(JSON.stringify(this.meta), `${modelName}_meta.json`, 'text/plain');
+    }
     if (callback) {
-      callback();
+      callback({
+        meta: this.meta
+      });
     }
   }
 

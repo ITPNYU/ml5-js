@@ -180,7 +180,7 @@ class NeuralNetwork {
    * @param {*} nameOrCb
    * @param {*} cb
    */
-  async save(nameOrCb, cb) {
+  async save({nameOrCb, cb, downloadOnSave = true}) {
     let modelName;
     let callback;
 
@@ -209,10 +209,15 @@ class NeuralNetwork {
           ],
         };
 
-        await saveBlob(data.weightData, `${modelName}.weights.bin`, 'application/octet-stream');
-        await saveBlob(JSON.stringify(this.weightsManifest), `${modelName}.json`, 'text/plain');
+        if (downloadOnSave) {
+          await saveBlob(data.weightData, `${modelName}.weights.bin`, 'application/octet-stream');
+          await saveBlob(JSON.stringify(this.weightsManifest), `${modelName}.json`, 'text/plain');
+        }
         if (callback) {
-          callback();
+          callback({
+            weightData: data.weightData,
+            manifest: this.weightsManifest
+          });
         }
       }),
     );

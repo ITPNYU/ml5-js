@@ -18,6 +18,7 @@ const DEFAULTS = {
   learningRate: 0.2,
   hiddenUnits: 16,
   noTraining: false,
+  downloadModelsOnSave: true
 };
 class DiyNeuralNetwork {
   constructor(options, cb) {
@@ -1152,9 +1153,32 @@ class DiyNeuralNetwork {
       modelName = 'model';
     }
 
+    const downloadOnSave = this.options.downloadModelsOnSave;
+
     // save the model
-    this.neuralNetwork.save(modelName, () => {
-      this.neuralNetworkData.saveMeta(modelName, callback);
+    this.neuralNetwork.save({
+      modelName,
+      cb: ({
+        weightData,
+        manifest
+      }) => {
+        this.neuralNetworkData.saveMeta({
+          modelName,
+          cb: ({ meta }) => {
+            if (downloadOnSave === false) {
+              callback({
+                meta,
+                weightData,
+                manifest
+              })
+            } else {
+              callback()
+            }
+          },
+          downloadOnSave
+        });
+      },
+      downloadOnSave
     });
   }
 
