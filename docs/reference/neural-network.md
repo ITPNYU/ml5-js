@@ -703,7 +703,7 @@ neuralNetwork.saveData(?outputName, ?callback);
 > loads the data to `neuralNetwork.data.data.raw`
 
 ```js
-neuralnetwork.loadData(?filesOrPath, ?callback);
+neuralnetwork.loadData(filesOrPath, ?callback);
 ```
 
 📥 **Inputs**
@@ -740,7 +740,7 @@ neuralNetwork.save(?outputName, ?callback);
 > Loads a pre-trained model
 
 ```js
-neuralNetwork.load(?filesOrPath, ?callback);
+neuralNetwork.load(filesOrPath, ?callback);
 ```
 
 📥 **Inputs**
